@@ -72,7 +72,7 @@ def calmar(cumpnl: pd.Series) -> np.array:
     return np.where(mdd != 0, min(cumpnl/mdd, 100.0), 100)
 
 def pnl_t(cumpnl: pd.Series) -> np.array:
-    return cumpnl.diff().fillna(0)
+    return cumpnl
 
 
 def days_since_first_trade(cumpnl: pd.Series) -> np.array:
@@ -186,6 +186,8 @@ def calc_metrics(df: pd.DataFrame) -> dict:
         m12 = excess_return(cumpnl, price, position)
         m13 = cvar_5(cumpnl)
         m14 = success_rate(cumpnl)
+        m15 = calmar(cumpnl)
+        
         temp = {
             'mdd_percent':m1,
             'ldd_percent':m2,
@@ -201,6 +203,7 @@ def calc_metrics(df: pd.DataFrame) -> dict:
             'excess_ret':m12,
             'cvar_5':m13,
             'success_rate':m14,
+            'calmar': m15,
         }
         dic[col] = pd.DataFrame(temp, index=df.index)
     return dic
