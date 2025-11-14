@@ -276,12 +276,12 @@ def compute_EI_trader(dic: dict, alpha: float, weights = None) -> pd.DataFrame:
     
     # re_arrange_df
     time_dic = {}
-    time_index = dic.values()[0].index
+    time_index = dic[pd.Timestamp('2006-01-31 00:00:00')].index
     for t in time_index:
         records = {}
         for trader, df in dic.items():
             records[trader] = df.loc[t]
-        time_dic[t] = pd.DataFrame(records, orient='index')
+        time_dic[t] = pd.DataFrame.from_dict(records, orient='index')
 
     EIs_list = []
     # transform each measure
