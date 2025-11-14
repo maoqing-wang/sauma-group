@@ -69,7 +69,7 @@ def calmar(cumpnl: pd.Series) -> np.array:
     top = np.maximum.accumulate(arr)
     running_dd = top - arr
     mdd = np.maximum.accumulate(running_dd)
-    return np.where(mdd != 0, min(cumpnl/mdd, 100.0), 100)
+    return np.where(mdd != 0, cumpnl/mdd, 100)
 
 def pnl_t(cumpnl: pd.Series) -> np.array:
     return cumpnl
